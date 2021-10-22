@@ -1,0 +1,103 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="Z_GEST_FERIEZ_GEST_FERIE.controller.Home"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:semantic="sap.m.semantic" xmlns:u="sap.ui.unified"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<semantic:FullscreenPage title="{i18n>homePageTitle}" navButtonPress="onNavBack" showNavButton="false" id="page" showSubHeader="true"
+		floatingFooter="true" showFooter="true">
+		<l:ResponsiveFlowLayout>
+			<VBox renderType="Bare" class="sapUiResponsiveMargin">
+				<layoutData>
+					<l:ResponsiveFlowLayoutData minWidth="320"/>
+				</layoutData>
+				<Panel id="overviewPanel" expandable="true" expanded="true" headerText="{i18n>overviewTabTitle}" width="auto">
+					<OverflowToolbar>
+						<SegmentedButton id="calendarToggleButton" selectedKey="{overview>/viewSelection}" width="21rem">
+							<items>
+								<SegmentedButtonItem id="btnShowCalendar" icon="sap-icon://calendar" text="{i18n>calText}" key="calendar"/>
+								<SegmentedButtonItem id="btnShowItemList" icon="sap-icon://list" text="Richieste" key="list"/>
+							</items>
+							<layoutData>
+								<OverflowToolbarLayoutData priority="High"/>
+							</layoutData>
+						</SegmentedButton>
+						<ToolbarSpacer/>
+						<core:InvisibleText id="overviewDatePickerAccLabel" text="{i18n>showLeaveRequestFrom}"/>
+						<Label text="{i18n>showFrom}" visible="{= !${device>/system/phone}}"/>
+						<DatePicker id="overviewDatePicker" width="10rem" value="2021-01-01" valueFormat="yyyy-MM-dds" change="onLeaveOverviewDateChanged"
+							tooltip="{i18n>showLeaveRequestFrom}" minDate="{global>/leaveRequestMinDisplayDate}" busyIndicatorDelay="0" busy="{global>/isConfigLoading}"
+							ariaLabelledBy="overviewDatePickerAccLabel">
+							<layoutData>
+								<OverflowToolbarLayoutData priority="Low"/>
+							</layoutData>
+						</DatePicker>
+						<!--Allow adding elements to the leave request overview table toolbar -->
+						<!--<core:ExtensionPoint name="overviewToolbarExtension"/>-->
+					</OverflowToolbar >
+					
+						<l:DynamicSideContent
+				id="DynamicSideContent"
+				class="sapUiDSCExplored sapUiContentPadding"
+				sideContentFallDown="BelowL"
+				containerQuery="true"
+				breakpointChanged="handleBreakpointChanged"
+				sideContentVisibility="AlwaysShow" >
+						<u:Calendar id="calendar" months="2" intervalSelection="true" select="onCalendarDateSelect">
+							<u:specialDates ></u:specialDates>
+						</u:Calendar>
+						<VBox width="70%">
+						<u:CalendarLegend id="legend">
+							<u:items >
+								<!-- approved (green) -->
+								<u:CalendarLegendItem
+									text="{parts:[{path: 'i18n>statusConcat'}, {path: 'i18n>approvedTxt'}, {path: 'i18n>informedStatus'}], formatter: 'jQuery.sap.formatMessage'}"
+									tooltip="{parts:[{path: 'i18n>statusConcat'}, {path: 'i18n>approvedTxt'}, {path: 'i18n>informedStatus'}], formatter: 'jQuery.sap.formatMessage'}"
+									type="Type08"/>
+								<!-- sent (yellow) -->
+								<u:CalendarLegendItem text="{i18n>sentTxt}" type="Type01" tooltip="{i18n>sentTxt}"/>
+								<!-- rejected (red) -->
+								<u:CalendarLegendItem text="{i18n>rejectedTxt}" type="Type03" tooltip="{i18n>rejectedTxt}"/>
+								<!-- Public Holiday (light blue) -->
+								<u:CalendarLegendItem id="pubHolidayCalLegend" text="{i18n>publicHolidayTxt}" type="Type09" tooltip="{i18n>publicHolidayTxt}"/>
+								<!--Allow adding further items to the calendar legend -->
+								<core:ExtensionPoint name="overviewCalendarLegendExtension"/>
+							</u:items>
+						</u:CalendarLegend>
+					</VBox>
+				<l:sideContent>
+					<f:Form editable="true" visible="true" class="SapUiLargeMarginTop">
+						<f:layout>
+							<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="true" emptySpanXL="4" emptySpanL="4"
+								emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"></f:ResponsiveGridLayout>
+						</f:layout>
+						<f:formContainers>
+							<f:FormContainer>
+								<f:formElements>
+									<f:FormElement label="Approvatore">
+										<Input value="" id="approv1" type="Text"
+                                                        showSuggestion="true"
+                                                        valueHelpOnly="true"
+                                                        showValueHelp="true"
+                                                        valueHelpRequest="handleValueHelp"/>
+									</f:FormElement>
+									<f:FormElement label="Approvatore di livello 2">
+										<Input value="" id="approv2"/>
+									</f:FormElement>
+									<f:FormElement label="Nota">
+										<TextArea height="6rem" width="100%" wrapping="None" maxLength="255"/>
+									</f:FormElement>
+								</f:formElements>
+							</f:FormContainer>
+						</f:formContainers>
+					</f:Form>
+					
+				</l:sideContent>
+			</l:DynamicSideContent>	
+					
+				</Panel>
+			</VBox>
+			
+		</l:ResponsiveFlowLayout>
+		<semantic:mainAction>
+			<semantic:MainAction id="btnCreateLeaveRequest" text="{i18n>createBtnTxt}" press="onCreateLeave" tooltip="{i18n>createViewTitle}"/>
+		</semantic:mainAction>
+	</semantic:FullscreenPage >
+</mvc:View>

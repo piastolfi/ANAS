@@ -1,0 +1,69 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="Z_GEST_FERIEZ_GEST_FERIE.controller.Creation"
+	xmlns:l="sap.ui.layout" xmlns:semantic="sap.m.semantic" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml">
+	<semantic:FullscreenPage id="creationPage" busyIndicatorDelay="0" busy="{= ${create>/busy} || ${global>/isAssignmentLoading} }"
+		navButtonPress="onNavBack" showNavButton="true" showSubHeader="false" floatingFooter="true" title="{create>/viewTitle}">
+		<semantic:content>
+			<VBox renderType="Bare" class="sapUiResponsiveMargin">
+				<!-- General Data Simple Form-->
+				<f:SimpleForm id="generalDataForm" title="{i18n>createPageGeneralDataTitle}" editable="true" layout="ResponsiveGridLayout" labelSpanXL="-1"
+					emptySpanXL="-1" columnsXL="-1" labelSpanL="3" emptySpanL="4" columnsL="1" labelSpanM="3" emptySpanM="4" columnsM="1" labelSpanS="12"
+					emptySpanS="0" adjustLabelSpan="false" singleContainerFullSize="false">
+					<f:content>
+						
+						<!-- Multi-/Single-Day Selection -->
+						<!-- [*] More than 1 day    [ ] One day or less -->
+						<!--<Label id="multiSingleDayLabel" text="{i18n>radioButtonLabel}" labelFor="singleOrMultiDayBtnGroup" visible="{device>/system/phone}"/>-->
+						<!--<RadioButtonGroup id="singleOrMultiDayBtnGroup" columns="2" select="onSingleMultiDayRadioSelected" enabled="true"
+							editable="true" selectedIndex="{ path: 'create>/multiOrSingleDayRadioGroupIndex', mode: 'TwoWay' }"
+							ariaLabelledBy="multiSingleDayLabel">
+							<buttons>
+								<RadioButton text="{i18n>multiDaysTxt}" ariaLabelledBy="multiDayRadioButtonTxt" select=".onSelection1"
+									enabled="{true}"/>
+								<RadioButton text="{i18n>oneDayTxt}" ariaLabelledBy="singleDayRadioButtonTxt" select=".onSelection2"
+									enabled="{ true}"/>
+							</buttons>
+						</RadioButtonGroup>-->
+						<!--  Start/End Date (CREATE) -->
+						<Label id="rangeSelectorLabel" required="true" visible="{= ${create>/multiOrSingleDayRadioGroupIndex} === 0 }" text="{i18n>startEndTxt}"
+							labelFor="dateRange"/>
+						<DateRangeSelection id="dateRange" enabled="{true}" change="onDateRangeChanged" placeholder="Scegli le date"
+							editable="{= ${create>/sEditMode} !== 'DELETE'}" dateValue="" 
+							secondDateValue="" legend="legend" ariaLabelledBy="daysTimeUsagetext"
+							visible="{= ${create>/multiOrSingleDayRadioGroupIndex} === 0 }"/>
+						<!--  Start Date only -->
+						<!--<Label id="startDateLabel" required="true" text="{i18n>dateTxt}" labelFor="startDate"
+							visible="{= ${create>/multiOrSingleDayRadioGroupIndex} === 1 }"/>
+						<DatePicker id="startDate" change="onDatePickChanged" enabled="{= !!${AbsenceTypeCode} }" editable="{= ${create>/sEditMode} !== 'DELETE'}"
+							value="{ path: 'StartDate', type: 'sap.ui.model.odata.type.DateTime', formatOptions: { UTC: true }, constraints: { displayFormat: 'Date' } }"
+							ariaLabelledBy="daysTimeUsagetext" visible="{= ${create>/multiOrSingleDayRadioGroupIndex} === 1 }" legend="legend"/>-->
+						<Label id="approvalLabel" text="{i18n>approv}" labelFor="newApproval" visible="{create>/isNoteVisible}"/>
+						<Select id="approvatore"
+								items="{ 
+									path: '/Dati/Approvatore', 
+									sorter: { path: 'nome' } 
+									}"
+								forceSelection="false"
+								enabled="true"
+								change="onSel2Change" >
+								<items>
+										<core:Item key="id" text="{nome} {cognome}"/>
+								</items>
+							</Select>
+						<Label id="noteLabel" text="{i18n>newNote}" labelFor="newNotesTextArea" visible="{create>/isNoteVisible}"/>
+						<TextArea id="newNotesTextArea" rows="5" growing="true" value="{create>/notes}" liveChange="onNotesLiveChange" valueLiveUpdate="true"
+							visible="{create>/isNoteVisible}"
+							enabled="true"/>
+					</f:content>
+					</f:SimpleForm>
+				</VBox>
+			</semantic:content>
+			<semantic:saveAction>
+			<semantic:SaveAction id="saveButton" enabled="{create>/saveButtonEnabled}" press="onSendRequest"
+				/>
+		</semantic:saveAction>
+		
+		<semantic:cancelAction>
+			<semantic:CancelAction id="cancel" press="onCancel"/>
+		</semantic:cancelAction>
+		</semantic:FullscreenPage>
+	</mvc:View>

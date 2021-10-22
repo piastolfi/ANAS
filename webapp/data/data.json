@@ -1,0 +1,30 @@
+{
+	"Dati": {
+		
+		"Approvatore": [
+			{
+			"key": 1,
+			"nome": "Giulia",
+			"cognome": "Modugno"
+			},
+			{
+			"key": 2,
+			"nome": "Mario",
+			"cognome": "Bianchi"
+			},
+			{
+			"key": 3,
+			"nome": "Giovanni",
+			"cognome": "Verdi"
+			},
+			{
+			"key": 4,
+			"nome": "Luigi",
+			"cognome": "Rossi"
+			}
+		],
+			"dateFrom": "Fri Oct 20 2021 00:00:00 GMT+0200 (Ora legale dell’Europa centrale)",
+			"dateTo": "Fri Oct 21 2021 00:00:00 GMT+0200 (Ora legale dell’Europa centrale)"
+		
+	}
+}

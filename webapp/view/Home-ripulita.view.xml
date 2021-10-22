@@ -1,0 +1,57 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="Z_GEST_FERIEZ_GEST_FERIE.controller.Home"
+	xmlns:l="sap.ui.layout" xmlns:semantic="sap.m.semantic" xmlns:u="sap.ui.unified"  xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="{i18n>homePageTitle}" id="page" >
+	<!--	<l:ResponsiveFlowLayout>
+			<VBox renderType="Bare" class="sapUiResponsiveMargin" width="66%" alignItems="Stretch" >
+				<layoutData>
+					<l:ResponsiveFlowLayoutData minWidth="320"/>
+				</layoutData>-->
+					<l:HorizontalLayout class="sapUiResponsiveMargin" >
+					<u:Calendar id="calendar" months="2" intervalSelection="true" legend="legend"
+						select="onCalendarDateSelect"
+						startDateChange="onCalendarStartDateChange"
+						ariaLabelledBy="calendarMinDisplayStripInvTxt" >
+							<!--<u:specialDates type="Type08" color="#6e8c1f"  >
+							<u:DateTypeRange startDate="{dateFrom}"
+									endDate="{dateTo}" /> 
+							</u:specialDates>-->
+					</u:Calendar >
+					<VBox >
+					<Label  text="Seleziona approvatore" />
+					<Input width="20rem"  />
+					<TextArea  width="20rem"  />
+					</VBox>
+					</l:HorizontalLayout>
+					<u:CalendarLegend id="legend" >
+						
+						<u:items>
+							
+							<!-- approved (green) -->
+							<u:CalendarLegendItem 
+								text="{parts:[{path: 'i18n>statusConcat'}, {path: 'i18n>approvedTxt'}, {path: 'i18n>informedStatus'}], formatter: 'jQuery.sap.formatMessage'}"
+								tooltip="{parts:[{path: 'i18n>statusConcat'}, {path: 'i18n>approvedTxt'}, {path: 'i18n>informedStatus'}], formatter: 'jQuery.sap.formatMessage'}"
+								type="Type08"/>
+							<!-- sent (yellow) -->
+							<u:CalendarLegendItem text="{i18n>sentTxt}" type="Type01" tooltip="{i18n>sentTxt}"/>
+							<!-- rejected (red) -->
+							<u:CalendarLegendItem text="{i18n>rejectedTxt}" type="Type03" tooltip="{i18n>rejectedTxt}"/>
+							<!-- Public Holiday (light blue) -->
+							<u:CalendarLegendItem id="pubHolidayCalLegend" text="{i18n>publicHolidayTxt}" type="Type09" tooltip="{i18n>publicHolidayTxt}"/>
+							<!--Allow adding further items to the calendar legend -->
+						
+						</u:items>
+					</u:CalendarLegend>
+					
+			
+					
+				
+			<!--</VBox >-->
+			<!--<VBox renderType="Bare" class="sapUiResponsiveMargin" width="33%" justifyContent="End">-->
+			
+		<!--	</VBox>-->
+		<!--</l:ResponsiveFlowLayout>-->
+		<!--<semantic:mainAction>
+			<semantic:MainAction id="btnCreateLeaveRequest" text="{i18n>createBtnTxt}" press="onCreateLeave" tooltip="{i18n>createViewTitle}"/>
+		</semantic:mainAction>-->
+	</Page>
+</mvc:View>

@@ -1,0 +1,68 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="Z_GEST_FERIEZ_GEST_FERIE.controller.Home"
+	xmlns:l="sap.ui.layout" xmlns:semantic="sap.m.semantic" xmlns:u="sap.ui.unified" xmlns:html="http://www.w3.org/1999/xhtml">
+	<semantic:FullscreenPage title="{i18n>homePageTitle}" navButtonPress="onNavBack" showNavButton="false" id="page" showSubHeader="true"
+		floatingFooter="true" showFooter="true">
+		<l:ResponsiveFlowLayout>
+			<VBox renderType="Bare" class="sapUiResponsiveMargin">
+				<layoutData>
+					<l:ResponsiveFlowLayoutData minWidth="320"/>
+				</layoutData>
+				<Panel id="overviewPanel" expandable="true" expanded="true" headerText="{i18n>overviewTabTitle}" width="auto">
+					<OverflowToolbar>
+						<SegmentedButton id="calendarToggleButton" selectedKey="{overview>/viewSelection}" width="21rem">
+							<items>
+								<SegmentedButtonItem id="btnShowCalendar" icon="sap-icon://calendar" text="{i18n>calText}" key="calendar"/>
+								<SegmentedButtonItem id="btnShowItemList" icon="sap-icon://list" text="Richieste" key="list"/>
+							</items>
+							<layoutData>
+								<OverflowToolbarLayoutData priority="High"/>
+							</layoutData>
+						</SegmentedButton>
+						<ToolbarSpacer/>
+						<core:InvisibleText id="overviewDatePickerAccLabel" text="{i18n>showLeaveRequestFrom}"/>
+						<Label text="{i18n>showFrom}" visible="{= !${device>/system/phone}}"/>
+						<DatePicker id="overviewDatePicker" width="10rem" value="2021-01-01" valueFormat="yyyy-MM-dds" change="onLeaveOverviewDateChanged"
+							tooltip="{i18n>showLeaveRequestFrom}" minDate="{global>/leaveRequestMinDisplayDate}" busyIndicatorDelay="0" busy="{global>/isConfigLoading}"
+							ariaLabelledBy="overviewDatePickerAccLabel">
+							<layoutData>
+								<OverflowToolbarLayoutData priority="Low"/>
+							</layoutData>
+						</DatePicker>
+						<!--Allow adding elements to the leave request overview table toolbar -->
+						<core:ExtensionPoint name="overviewToolbarExtension"/>
+					</OverflowToolbar >
+					<!--Leave Request Overview Calendar -->
+					<!--<MessageStrip width="66%" id="calendarHintStrip" text="{i18n>calendarHint}" type="Information" showIcon="true" showCloseButton="false"
+						tooltip="{i18n>calendarHint}" class="sapUiSmallMarginTopBottom" visible="{overview>/showCalendar}"/>-->
+					<u:Calendar width="100%" id="calendar" months="2" intervalSelection="true" legend="legend" select="onCalendarDateSelect">
+						<u:selectedDates />
+							<!--<u:DateTypeRange startDate="{dateFrom}"
+									endDate="{dateTo}" /> -->
+						
+					</u:Calendar>
+					<Button text="Mostra date selezionate" press="onPress"></Button>
+					<u:CalendarLegend id="legend" visible="{overview>/showCalendar}">
+						<u:items>
+							<!-- approved (green) -->
+							<u:CalendarLegendItem
+								text="{parts:[{path: 'i18n>statusConcat'}, {path: 'i18n>approvedTxt'}, {path: 'i18n>informedStatus'}], formatter: 'jQuery.sap.formatMessage'}"
+								tooltip="{parts:[{path: 'i18n>statusConcat'}, {path: 'i18n>approvedTxt'}, {path: 'i18n>informedStatus'}], formatter: 'jQuery.sap.formatMessage'}"
+								type="Type08"/>
+							<!-- sent (yellow) -->
+							<u:CalendarLegendItem text="{i18n>sentTxt}" type="Type01" tooltip="{i18n>sentTxt}"/>
+							<!-- rejected (red) -->
+							<u:CalendarLegendItem text="{i18n>rejectedTxt}" type="Type03" tooltip="{i18n>rejectedTxt}"/>
+							<!-- Public Holiday (light blue) -->
+							<u:CalendarLegendItem id="pubHolidayCalLegend" text="{i18n>publicHolidayTxt}" type="Type09" tooltip="{i18n>publicHolidayTxt}"/>
+							<!--Allow adding further items to the calendar legend -->
+							<core:ExtensionPoint name="overviewCalendarLegendExtension"/>
+						</u:items>
+					</u:CalendarLegend>
+				</Panel>
+			</VBox>
+		</l:ResponsiveFlowLayout>
+		<semantic:mainAction>
+			<semantic:MainAction id="btnCreateLeaveRequest" text="{i18n>createBtnTxt}" press="onCreateLeave" tooltip="{i18n>createViewTitle}"/>
+		</semantic:mainAction>
+	</semantic:FullscreenPage >
+</mvc:View>
